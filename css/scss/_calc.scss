@@ -1,0 +1,43 @@
+#calc{
+	justify-content: center;
+	width: 35%;
+	background-color: $black;
+	color: white;
+
+	#result-container{
+		background-color:$white;
+	}
+
+	#result{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		font-size: 1.7em;
+		text-align:center;
+		width: 40%;
+	}
+
+	.flex-row{
+		display: flex;
+		justify-content: center;
+	}
+
+	.button, #equals{
+		&:hover{
+			background-color: $blue;
+		}
+    }
+
+    #clear{
+    	&:hover{
+    		background-color: red;
+    	}
+    }
+
+	p{
+		padding: 0 9px;
+		font-size:3em;
+		margin:10px;
+	}
+}

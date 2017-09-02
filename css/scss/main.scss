@@ -1,25 +1,17 @@
 /*scss --watch scss/main.scss:style.css*/
-#calc{
 
+body{
 	.flex-container{
 		display: flex;
 		justify-content:center;
 	}
 
-	#result{
-		text-align:center;
-		width: 40%;
-		background-color: #999999;
-		height: 80px;
-	}
-	.flex-row{
-		display: flex;
-		justify-content: center;
-	}
-
-	p{
-		padding: 0 30px;
-		font-size:3em;
-		margin:10px;
+	h2{
+		text-align: center;
+		margin-bottom: 30px;
 	}
 }
+
+@import 'colors';
+@import 'calc';
+

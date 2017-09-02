@@ -1,18 +1,35 @@
 /*scss --watch scss/main.scss:style.css*/
-#calc .flex-container {
+body .flex-container {
   display: flex;
   justify-content: center; }
-#calc #result {
+body h2 {
   text-align: center;
-  width: 40%;
-  background-color: #999999;
-  height: 80px; }
-#calc .flex-row {
-  display: flex;
-  justify-content: center; }
-#calc p {
-  padding: 0 30px;
-  font-size: 3em;
-  margin: 10px; }
+  margin-bottom: 30px; }
+
+#calc {
+  justify-content: center;
+  width: 35%;
+  background-color: #040B11;
+  color: white; }
+  #calc #result-container {
+    background-color: #EEEFEA; }
+  #calc #result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7em;
+    text-align: center;
+    width: 40%; }
+  #calc .flex-row {
+    display: flex;
+    justify-content: center; }
+  #calc .button:hover, #calc #equals:hover {
+    background-color: #2E6BAD; }
+  #calc #clear:hover {
+    background-color: red; }
+  #calc p {
+    padding: 0 9px;
+    font-size: 3em;
+    margin: 10px; }
 
 /*# sourceMappingURL=style.css.map */
