@@ -16,24 +16,17 @@ var App = {
 
 	selectNumber: (e) => {
 		var button = $(e.target).text();
+		var resultText = $("#result").text().replace(" ","").split("");
+		var lastSelected = resultText[resultText.length-1];
+		if(lastSelected === undefined){ lastSelected = 's'}
+		console.log(lastSelected)
 		View.appendToResult(button);
 	},
 
 	calcResult: () => {
-		//var result;
 		var text = $("#result").text().replace(" ","");
 		var result = eval(text);
-		console.log(result);
-		/*
-		for(var num in text){
-			if(parseInt(text[num])){
-				console.log('num')
-			}
-			else{
-				console.log('operator')
-			}
-		}
-		*/
+		View.appendToResult(`=${result}`)
 	},
 
 	doOperation: () => {
