@@ -12,7 +12,9 @@ body h2 {
   background-color: #040B11;
   color: white; }
   #calc #result-container {
-    background-color: #EEEFEA; }
+    height: 55px;
+    background-color: #EEEFEA;
+    color: #040B11; }
   #calc #result {
     display: flex;
     align-items: center;

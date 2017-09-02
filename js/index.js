@@ -3,6 +3,10 @@ $(document).ready(()=>{
 	View.init();
 })
 
+var Data = {
+	resultText: ""
+}
+
 var App = {
 	init: () => {
 		App.setEvents();
@@ -16,11 +20,20 @@ var App = {
 
 	selectNumber: (e) => {
 		var button = $(e.target).text();
-		var resultText = $("#result").text().replace(" ","").split("");
-		var lastSelected = resultText[resultText.length-1];
-		if(lastSelected === undefined){ lastSelected = 's'}
-		console.log(lastSelected)
-		View.appendToResult(button);
+
+		var validate = App.validateInput(button);
+		if(validate){View.appendToResult(button);}
+		Data.resultText = $("#result").text().split("");
+	},
+
+	validateInput: (button) => {
+		var operators = ["/", "*", "+", "-"];
+		var resultText = Data.resultText;
+		var prevNum = resultText[resultText.length-1];
+		if(operators.includes(prevNum) && operators.includes(button)){
+			return false;
+		}
+		return true;
 	},
 
 	calcResult: () => {
