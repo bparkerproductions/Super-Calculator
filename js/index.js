@@ -16,6 +16,7 @@ var App = {
 		$(".button").click(App.selectNumber);
 		$("#equals").click(App.calcResult);
 		$("#clear").click(View.clearResult);
+		$(".fa-cog").click(View.toggleHistory);
 	},
 
 	selectNumber: (e) => {
@@ -80,5 +81,14 @@ var View = {
 
 	clearResult: () => {
 		$("#result").text("");
+	},
+
+	toggleHistory: () =>{
+		if($("#history").is(":visible")){
+			$("#history").hide();
+		}
+		else{
+			$("#history").show();
+		}
 	}
 }

@@ -43,6 +43,9 @@ nav .fa {
   float: right;
   width: 400px;
   height: 400px;
+  color: #040B11;
   background-color: #2E6BAD; }
+  #history h3 {
+    text-align: center; }
 
 /*# sourceMappingURL=style.css.map */
