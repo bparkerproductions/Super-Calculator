@@ -70,7 +70,7 @@ var App = {
 
 var View = {
 	init: () => {
-		
+		$("#history").hide();
 	},
 
 	appendToResult: (num) => {

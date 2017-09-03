@@ -6,9 +6,14 @@ body h2 {
   text-align: center;
   margin-bottom: 30px; }
 
+nav #options {
+  float: right; }
+nav .fa {
+  font-size: 1.2em;
+  padding-right: 10px; }
+
 #calc {
   justify-content: center;
-  width: 35%;
   background-color: #040B11;
   color: white; }
   #calc #result-container {
@@ -33,5 +38,11 @@ body h2 {
     padding: 0 9px;
     font-size: 3em;
     margin: 10px; }
+
+#history {
+  float: right;
+  width: 400px;
+  height: 400px;
+  background-color: #2E6BAD; }
 
 /*# sourceMappingURL=style.css.map */
