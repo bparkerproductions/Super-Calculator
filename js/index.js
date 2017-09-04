@@ -70,7 +70,7 @@ var App = {
 
 	//history functions
 	addHistory: (resultText) => {
-		var length = Object.keys(resultText).length+1;
+		var length = Object.keys(Data.history).length+1;
 		var count = `op${length}`;
 		Data.history[count] = resultText;
 		console.log(Data.history);
@@ -100,7 +100,7 @@ var View = {
 	},
 
 	renderHistory: () => {
-		//$("#history").detach();
+		$("#historyList").empty();
 		Object.keys(Data.history).forEach((key)=>{
 			$("#historyList").append(`<li>${Data.history[key]}</li>`);
 		})
