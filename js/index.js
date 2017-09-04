@@ -4,7 +4,8 @@ $(document).ready(()=>{
 })
 
 var Data = {
-	resultText: ""
+	resultText: "",
+	history: {}
 }
 
 var App = {
@@ -51,6 +52,8 @@ var App = {
  
 		if(resultText.includes("=")){
 			View.clearResult();
+			//App.addHistory(resultText);
+			//View.renderHistory();
 		}
 	},
 
@@ -58,14 +61,19 @@ var App = {
 		var text = $("#result").text().replace(" ","");
 		var result = eval(text);
 		View.appendToResult(`=${result}`);
+
+		//get new text after appended result
+		var newText = $("#result").text().replace(" ","");
+		App.addHistory(newText);
+		View.renderHistory(newText);
 	},
 
-	shortenNum: (num) => {
-		var splitNum = num.split("");
-		if(splitNum.length > 10){
-			return splitNum.splice(1, 10).join("");
-		}
-		return num;
+	//history functions
+	addHistory: (resultText) => {
+		var length = Object.keys(resultText).length+1;
+		var count = `op${length}`;
+		Data.history[count] = resultText;
+		console.log(Data.history);
 	}
 }
 
@@ -75,7 +83,6 @@ var View = {
 	},
 
 	appendToResult: (num) => {
-		//var shortened = App.shortenNum(num);
 		$("#result").append(num);
 	},
 
@@ -83,12 +90,19 @@ var View = {
 		$("#result").text("");
 	},
 
-	toggleHistory: () =>{
+	toggleHistory: () => {
 		if($("#history").is(":visible")){
 			$("#history").hide();
 		}
 		else{
 			$("#history").show();
 		}
+	},
+
+	renderHistory: () => {
+		//$("#history").detach();
+		Object.keys(Data.history).forEach((key)=>{
+			$("#historyList").append(`<li>${Data.history[key]}</li>`);
+		})
 	}
 }

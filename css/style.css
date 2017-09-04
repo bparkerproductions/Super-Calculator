@@ -11,6 +11,9 @@ nav #options {
 nav .fa {
   font-size: 1.2em;
   padding-right: 10px; }
+  nav .fa:hover {
+    color: #2E6BAD;
+    font-size: 1.4em; }
 
 #calc {
   justify-content: center;
