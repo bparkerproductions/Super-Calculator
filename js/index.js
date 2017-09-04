@@ -4,7 +4,6 @@ $(document).ready(()=>{
 })
 
 var Data = {
-	resultText: "",
 	history: {}
 }
 
@@ -22,17 +21,17 @@ var App = {
 
 	selectNumber: (e) => {
 		var button = $(e.target).text();
+
 		//check if user already calculated result
 		App.nextOperation(button);
 
 		var validate = App.validateInput(button);
 		if(validate){View.appendToResult(button);}
-		Data.resultText = $("#result").text().split("");
 	},
 
 	validateInput: (button) => {
 		var operators = ["/", "*", "+", "-"];
-		var resultText = Data.resultText;
+		var resultText = $("#result").text().split("");
 		var prevNum = resultText[resultText.length-1];
 
 		//user tries to enter two operators in a row

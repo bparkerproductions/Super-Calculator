@@ -7,4 +7,17 @@
 	background-color: $blue;
 
 	h3{ text-align: center; }
+
+	ul{
+		list-style: none;
+
+		li{
+			margin-bottom: 5px;
+
+			&:hover{
+				font-size:1.2em;
+				color: $white;
+			}
+		}
+	}
 }

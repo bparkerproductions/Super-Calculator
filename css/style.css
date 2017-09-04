@@ -50,5 +50,12 @@ nav .fa {
   background-color: #2E6BAD; }
   #history h3 {
     text-align: center; }
+  #history ul {
+    list-style: none; }
+    #history ul li {
+      margin-bottom: 5px; }
+      #history ul li:hover {
+        font-size: 1.2em;
+        color: #EEEFEA; }
 
 /*# sourceMappingURL=style.css.map */
