@@ -37,12 +37,20 @@ var App = {
 	},
 
 	validateInput: (button) => {
-		var operators = ["/", "*", "+", "-"];
+		var operators = ["/", "*", "+", "-", ".","(",")"];
 		var resultText = $("#result").text().split("");
 		var prevNum = resultText[resultText.length-1];
 
 		//user tries to enter two operators in a row
 		if(operators.includes(prevNum) && operators.includes(button)){
+			//if it's a parans, it's okay
+			if(button == "(" || button == ")"){
+				//unless you try to enter two in a row
+				if(prevNum == "(" || prevNum == ")"){
+					return false;
+				}
+				return true;
+			}
 			return false;
 		}
 
@@ -58,8 +66,6 @@ var App = {
  
 		if(resultText.includes("=")){
 			View.clearResult();
-			//App.addHistory(resultText);
-			//View.renderHistory();
 		}
 	},
 
