@@ -57,5 +57,10 @@ nav .fa {
       #history ul li:hover {
         font-size: 1.2em;
         color: #EEEFEA; }
+  #history #options {
+    float: right; }
+    #history #options .fa-eraser {
+      font-size: 2em;
+      margin-right: 15px; }
 
 /*# sourceMappingURL=style.css.map */

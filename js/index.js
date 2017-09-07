@@ -13,10 +13,17 @@ var App = {
 	},
 
 	setEvents: () => {
+		//main app listeners
 		$(".button").click(App.selectNumber);
 		$("#equals").click(App.calcResult);
+
+		//view listeners
 		$("#clear").click(View.clearResult);
 		$(".fa-cog").click(View.toggleHistory);
+
+		//history listeners
+		$("#historyList").click(App.useHistory);
+		$("#clear-history").on('click', View.clearHistory);
 	},
 
 	selectNumber: (e) => {
@@ -73,7 +80,14 @@ var App = {
 		var count = `op${length}`;
 		Data.history[count] = resultText;
 		console.log(Data.history);
-	}
+	},
+
+	useHistory: (e) => {
+		var text = $(e.target).text().trim();
+		var operation = text.substring(0, text.indexOf('='));
+		View.clearResult();
+		View.appendToResult(operation);
+	},
 }
 
 var View = {
@@ -103,5 +117,11 @@ var View = {
 		Object.keys(Data.history).forEach((key)=>{
 			$("#historyList").append(`<li>${Data.history[key]}</li>`);
 		})
+	},
+
+	//History view functions
+	clearHistory: () => {
+		Data.history = {};
+		$("#historyList").empty();
 	}
 }
