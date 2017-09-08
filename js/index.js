@@ -82,13 +82,13 @@ var App = {
 		var text = $("#result").text().replace(" ","");
 		var converted = App.convertSigns(text);
 
-		try{
+		//try{
 			var result = eval(converted);
 			App.successfulEval(result, text);
-		}
-		catch(err){
-			App.evalError(text);
-		}
+		//}
+		//catch(err){
+			//App.evalError(text);
+		//}
 	},
 
 	successfulEval: (result, text) => {
@@ -111,6 +111,10 @@ var App = {
 
 	successfulCalc: (result) => {
 		View.toggleError(false);
+		var resultLength = result.toString().length;
+		if( resultLength > 5){
+			result = result.toExponential(parseInt(result));
+		}
 		View.appendToResult(`=${result}`);
 
 		//get new text after appended result

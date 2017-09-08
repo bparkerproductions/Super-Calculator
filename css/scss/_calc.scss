@@ -1,8 +1,7 @@
 #calc{
 	font-family: 'Orbitron', sans-serif;
 	justify-content: center;
-	background-color: $black;
-	color: white;
+
 	padding: 30px;
 	background-color:$white;
 	color: $text-color;
@@ -15,6 +14,8 @@
 		color: $black;
 		margin-bottom: 15px;
 		border: 1px solid #333;
+		max-width: 300px;
+		overflow: auto;
 	}
 
 	#result{
