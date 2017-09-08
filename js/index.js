@@ -37,16 +37,16 @@ var App = {
 	},
 
 	validateInput: (button) => {
-		var operators = ["/", "*", "+", "-", ".","(",")"];
+		var operators = ["/", "*", "+", "-", ".", "(", ")"];
 		var resultText = $("#result").text().split("");
 		var prevNum = resultText[resultText.length-1];
 
 		//user tries to enter two operators in a row
 		if(operators.includes(prevNum) && operators.includes(button)){
-			//if it's a parans, it's okay
+			//if it's a parens, it's okay
 			if(button == "(" || button == ")"){
 				//unless you try to enter two in a row
-				if(prevNum == "(" || prevNum == ")"){
+				if(prevNum == "("){
 					return false;
 				}
 				return true;
@@ -71,13 +71,29 @@ var App = {
 
 	calcResult: () => {
 		var text = $("#result").text().replace(" ","");
-		var result = eval(text);
+		var converted = App.convertSigns(text);
+		console.log(converted);
+		var result = eval(converted);
 		View.appendToResult(`=${result}`);
 
 		//get new text after appended result
 		var newText = $("#result").text().replace(" ","");
 		App.addHistory(newText);
 		View.renderHistory(newText);
+	},
+
+	convertSigns: (text) =>{
+		//converts calculator operators 
+		//into .eval friendly commands
+
+		//for multiplication 5(8), 100(10), etc
+		var multiplyRegex = /\d+\((\d+\+?\-?\*?\/?\(?\)?){1,}\)/ig;
+		text.replace(multiplyRegex, (data)=>{
+			console.log(data);
+			text = data.replace("(", "*(");
+		});
+
+		return text;
 	},
 
 	//history functions
