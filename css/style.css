@@ -54,14 +54,16 @@ nav .fa {
 #history {
   float: right;
   margin-top: 50px;
-  max-width: 300px;
-  overflow: auto;
+  max-width: 250px;
+  text-overflow: ellipsis;
   text-align: left; }
   #history h3 {
     text-align: center; }
   #history ul {
     color: #222;
     list-style: none; }
+    #history ul p {
+      overflow-wrap: normal; }
     #history ul li {
       margin-bottom: 5px; }
       #history ul li:hover {

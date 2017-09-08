@@ -17,7 +17,7 @@ Multiplication works normally with parenthesis
 <li>10*(6-88)</li>
 </ul>
 
-But you can also use parenthesis multiplication like so:
+You can also use parenthesis multiplication like so:
 <ul>
 <li>5(8)</li>
 <li>5(7-909)</li>

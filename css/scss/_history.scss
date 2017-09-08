@@ -1,8 +1,8 @@
 #history{
 	float: right;
 	margin-top: 50px;
-	max-width:300px;
-	overflow: auto;
+	max-width:250px;
+	text-overflow: ellipsis;
 	text-align: left;
 
 	h3{ text-align: center; }
@@ -10,6 +10,10 @@
 	ul{
 		color: $text-color;
 		list-style: none;
+
+		p{
+			overflow-wrap:normal;
+		}
 
 		li{
 			margin-bottom: 5px;

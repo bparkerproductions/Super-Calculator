@@ -82,13 +82,14 @@ var App = {
 		var text = $("#result").text().replace(" ","");
 		var converted = App.convertSigns(text);
 
-		//try{
+		try{
 			var result = eval(converted);
 			App.successfulEval(result, text);
-		//}
-		//catch(err){
-			//App.evalError(text);
-		//}
+		}
+		catch(err){
+			console.log(err);
+			App.evalError(text);
+		}
 	},
 
 	successfulEval: (result, text) => {
@@ -111,10 +112,7 @@ var App = {
 
 	successfulCalc: (result) => {
 		View.toggleError(false);
-		var resultLength = result.toString().length;
-		if( resultLength > 5){
-			result = result.toExponential(parseInt(result));
-		}
+		result = App.shortenResult(result);
 		View.appendToResult(`=${result}`);
 
 		//get new text after appended result
@@ -154,6 +152,19 @@ var App = {
 		var recentEntry = Data.history[`op${objLength}`];
 		var result = recentEntry.substr(recentEntry.indexOf("=")+1);
 		View.prependPrevAnswer(result);
+	},
+
+	shortenResult: (result) => {
+		var resultStr = result.toString();
+
+			try{
+				//only round decimals
+				resultStr.includes(".") ? result = result.toFixed(4) : result;
+			}
+			catch(err){
+				console.log(err);
+			}
+		return result;
 	}
 }
 
@@ -183,7 +194,7 @@ var View = {
 	renderHistory: () => {
 		$("#historyList").empty();
 		Object.keys(Data.history).forEach((key)=>{
-			$("#historyList").append(`<li>${Data.history[key]}</li>`);
+			$("#historyList").append(`<li><p>${Data.history[key]}</p></li>`);
 		})
 	},
 
