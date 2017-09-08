@@ -1,12 +1,20 @@
 #calc{
+	font-family: 'Orbitron', sans-serif;
 	justify-content: center;
 	background-color: $black;
 	color: white;
+	padding: 30px;
+	background-color:$white;
+	color: $text-color;
+	border: 3px solid $text-color;
+	margin-top: 50px;
 
 	#result-container{
 		height: 55px;
 		background-color:$white;
 		color: $black;
+		margin-bottom: 15px;
+		border: 1px solid #333;
 	}
 
 	#result{
@@ -25,6 +33,8 @@
 	}
 
 	.button, #equals{
+		background-color: $grey;
+
 		&:hover{
 			background-color: $blue;
 		}
@@ -37,8 +47,10 @@
     }
 
 	p{
-		padding: 0 9px;
-		font-size:2em;
+		padding: 5px 10px 0px 10px;
+		text-align: center;
+		width: 38px;
+		font-size:1.5em;
 		margin:10px;
 	}
 }

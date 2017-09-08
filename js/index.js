@@ -56,9 +56,18 @@ var App = {
 
 		//user starts with operator
 		if(operators.includes(button) && resultText.length == 0){
-			return false;
+			App.equalLast();
 		}
 		return true;
+	},
+
+	equalLast: () =>{
+		var objLength = Object.keys(Data.history).length;
+		if(objLength > 0){
+			App.prependLastResult(objLength);
+			return true;
+		}
+		return false;
 	},
 
 	nextOperation: (number) => {
@@ -74,12 +83,10 @@ var App = {
 		var converted = App.convertSigns(text);
 
 		try{
-			//try to evaluate result
 			var result = eval(converted);
 			App.successfulEval(result, text);
 		}
 		catch(err){
-			//if eval doesn't work, let the user know
 			App.evalError(text);
 		}
 	},
@@ -119,7 +126,6 @@ var App = {
 		//for multiplication 5(8), 100(10), etc
 		var multiplyRegex = /\d+\((\d+\+?\-?\*?\/?\(?\)?){1,}\)/ig;
 		text.replace(multiplyRegex, (data)=>{
-			console.log(data);
 			text = data.replace("(", "*(");
 		});
 
@@ -131,7 +137,6 @@ var App = {
 		var length = Object.keys(Data.history).length+1;
 		var count = `op${length}`;
 		Data.history[count] = resultText;
-		console.log(Data.history);
 	},
 
 	useHistory: (e) => {
@@ -140,6 +145,12 @@ var App = {
 		View.clearResult();
 		View.appendToResult(operation);
 	},
+
+	prependLastResult: (objLength) =>{
+		var recentEntry = Data.history[`op${objLength}`];
+		var result = recentEntry.substr(recentEntry.indexOf("=")+1);
+		View.prependPrevAnswer(result);
+	}
 }
 
 var View = {
@@ -180,5 +191,9 @@ var View = {
 
 	toggleError: (visible) => {
 		visible ? $("#error").show() : $("#error").hide();
+	},
+
+	prependPrevAnswer: (result) => {
+		View.appendToResult(result);
 	}
 }

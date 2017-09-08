@@ -2,9 +2,6 @@
 body .flex-container {
   display: flex;
   justify-content: center; }
-body h2 {
-  text-align: center;
-  margin-bottom: 30px; }
 
 nav #options {
   float: right; }
@@ -16,13 +13,21 @@ nav .fa {
     font-size: 1.4em; }
 
 #calc {
+  font-family: 'Orbitron', sans-serif;
   justify-content: center;
   background-color: #040B11;
-  color: white; }
+  color: white;
+  padding: 30px;
+  background-color: #FFFFFF;
+  color: #222;
+  border: 3px solid #222;
+  margin-top: 50px; }
   #calc #result-container {
     height: 55px;
-    background-color: #EEEFEA;
-    color: #040B11; }
+    background-color: #FFFFFF;
+    color: #040B11;
+    margin-bottom: 15px;
+    border: 1px solid #333; }
   #calc #result {
     display: flex;
     align-items: center;
@@ -33,13 +38,17 @@ nav .fa {
   #calc .flex-row {
     display: flex;
     justify-content: center; }
-  #calc .button:hover, #calc #equals:hover {
-    background-color: #2E6BAD; }
+  #calc .button, #calc #equals {
+    background-color: #D3D3D3; }
+    #calc .button:hover, #calc #equals:hover {
+      background-color: #2E6BAD; }
   #calc #clear:hover {
     background-color: red; }
   #calc p {
-    padding: 0 9px;
-    font-size: 2em;
+    padding: 5px 10px 0px 10px;
+    text-align: center;
+    width: 38px;
+    font-size: 1.5em;
     margin: 10px; }
 
 #history {
@@ -56,7 +65,7 @@ nav .fa {
       margin-bottom: 5px; }
       #history ul li:hover {
         font-size: 1.2em;
-        color: #EEEFEA; }
+        color: #FFFFFF; }
   #history #options {
     float: right; }
     #history #options .fa-eraser {
