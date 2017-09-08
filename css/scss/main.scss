@@ -17,3 +17,12 @@ body{
 @import 'calc';
 @import 'history';
 
+#error{
+	p{
+		text-align: center;
+		background-color: red;
+		padding: 10px 0;
+		color: white;
+	}
+}
+

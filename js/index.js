@@ -72,14 +72,31 @@ var App = {
 	calcResult: () => {
 		var text = $("#result").text().replace(" ","");
 		var converted = App.convertSigns(text);
-		console.log(converted);
-		var result = eval(converted);
-		View.appendToResult(`=${result}`);
 
-		//get new text after appended result
-		var newText = $("#result").text().replace(" ","");
-		App.addHistory(newText);
-		View.renderHistory(newText);
+		try{
+			//try to evaluate result
+			var result = eval(converted);
+			App.successfulCalc(result, text);
+		}
+		catch(err){
+			//if eval doesn't work, let the user know
+			View.toggleError(true);
+		}
+	},
+
+	successfulCalc: (result, text) => {
+		if(text.replace(" ","").trim() == ""){ 
+			View.appendToResult(`0`); 
+		}
+		else{
+			View.toggleError(false);
+			View.appendToResult(`=${result}`);
+
+			//get new text after appended result
+			var newText = $("#result").text().replace(" ","");
+			App.addHistory(newText);
+			View.renderHistory(newText);
+		}
 	},
 
 	convertSigns: (text) =>{
@@ -115,6 +132,7 @@ var App = {
 var View = {
 	init: () => {
 		$("#history").hide();
+		$("#error").hide();
 	},
 
 	appendToResult: (num) => {
@@ -145,5 +163,9 @@ var View = {
 	clearHistory: () => {
 		Data.history = {};
 		$("#historyList").empty();
+	},
+
+	toggleError: (visible) => {
+		visible ? $("#error").show() : $("#error").hide();
 	}
 }
