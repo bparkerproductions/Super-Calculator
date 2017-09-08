@@ -1,6 +1,17 @@
 nav{
+	height: 50px;
+	display:flex;
+	align-items: center;
+	justify-content: end;
+	padding: 10px 10px 0 0;
+
 	#options{
-		float: right;
+		position: fixed;
+	}
+
+	a{
+		text-decoration: none;
+		color: $blue;
 	}
 
 	.fa{

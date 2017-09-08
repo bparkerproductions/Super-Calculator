@@ -6,13 +6,13 @@
 	background-color:$white;
 	color: $text-color;
 	border: 3px solid $text-color;
-	margin-top: 50px;
+	margin-top: 20px;
 
 	#result-container{
 		height: 55px;
 		background-color:$white;
 		color: $black;
-		margin-bottom: 15px;
+		margin: 15px auto;
 		border: 1px solid #333;
 		max-width: 300px;
 		overflow: auto;
@@ -41,9 +41,14 @@
 		}
     }
 
+    .number{
+    	background-color: $dark-grey;
+    }
+
     #clear{
+    	background-color: $grey;
     	&:hover{
-    		background-color: red;
+    		background-color: $red;
     	}
     }
 
@@ -53,5 +58,10 @@
 		width: 38px;
 		font-size:1.5em;
 		margin:10px;
+	}
+
+	@media only screen and (max-width: 500px){
+		width:100%;
+		border: initial;
 	}
 }
