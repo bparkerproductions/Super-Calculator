@@ -76,27 +76,40 @@ var App = {
 		try{
 			//try to evaluate result
 			var result = eval(converted);
-			App.successfulCalc(result, text);
+			App.successfulEval(result, text);
 		}
 		catch(err){
 			//if eval doesn't work, let the user know
-			View.toggleError(true);
+			App.evalError(text);
 		}
 	},
 
-	successfulCalc: (result, text) => {
+	successfulEval: (result, text) => {
 		if(text.replace(" ","").trim() == ""){ 
 			View.appendToResult(`0`); 
 		}
 		else{
-			View.toggleError(false);
-			View.appendToResult(`=${result}`);
-
-			//get new text after appended result
-			var newText = $("#result").text().replace(" ","");
-			App.addHistory(newText);
-			View.renderHistory(newText);
+			App.successfulCalc(result);
 		}
+	},
+
+	evalError: (text) => {
+		if(text.includes("=")){
+			View.clearResult();
+		}
+		else{
+			View.toggleError(true);
+		}
+	},
+
+	successfulCalc: (result) => {
+		View.toggleError(false);
+		View.appendToResult(`=${result}`);
+
+		//get new text after appended result
+		var newText = $("#result").text().replace(" ","");
+		App.addHistory(newText);
+		View.renderHistory(newText);
 	},
 
 	convertSigns: (text) =>{
