@@ -16,6 +16,7 @@ var App = {
 		//main app listeners
 		$(".button").click(App.selectNumber);
 		$("#equals").click(App.calcResult);
+		$("#plus-minus").click(App.invertSign);
 
 		//view listeners
 		$("#clear").click(View.clearResult);
@@ -68,6 +69,30 @@ var App = {
 			return true;
 		}
 		return false;
+	},
+
+	invertSign: () => {
+		//BUG: inverted sign changes wrong signs in some situations
+		var resultText = $("#result").text();
+		numReg = /-?\+?\d+$/;
+
+		//callback to be passed into try/catch
+		var callback = ()=>{return resultText.match(numReg)[0];};
+		var num = App.attemptOperation(callback);
+
+		resultText = resultText.replace(num, (result) => {
+			console.log(result);
+			if(result.includes("-")){
+				return result.replace("-", "+");
+			}
+			{
+				result = result.replace("+","");
+				return `-${result}`;
+			}
+		});
+
+		View.clearResult();
+		View.appendToResult(resultText);
 	},
 
 	nextOperation: (number) => {
@@ -134,6 +159,18 @@ var App = {
 		return text;
 	},
 
+	attemptOperation: (operation) => {
+		try{
+			View.toggleError(false);
+			var result = operation();
+			return result;
+		}
+		catch(err){
+			View.toggleError(true);
+			console.log(err);
+		}
+	},
+
 	//history functions
 	addHistory: (resultText) => {
 		var length = Object.keys(Data.history).length+1;
@@ -157,13 +194,9 @@ var App = {
 	shortenResult: (result) => {
 		var resultStr = result.toString();
 
-			try{
-				//only round decimals
-				resultStr.includes(".") ? result = result.toFixed(4) : result;
-			}
-			catch(err){
-				console.log(err);
-			}
+		var callback = ()=>{return resultStr.includes(".") ? result = result.toFixed(4) : result;}
+		var result = App.attemptOperation(callback);
+
 		return result;
 	}
 }
