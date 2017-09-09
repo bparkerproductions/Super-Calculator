@@ -57,18 +57,15 @@ var App = {
 
 		//user starts with operator
 		if(operators.includes(button) && resultText.length == 0){
-			App.equalLast();
+			return Data.history ? App.equalLast() : false;
 		}
 		return true;
 	},
 
 	equalLast: () =>{
 		var objLength = Object.keys(Data.history).length;
-		if(objLength > 0){
-			App.prependLastResult(objLength);
-			return true;
-		}
-		return false;
+		App.prependLastResult(objLength);
+		return true;
 	},
 
 	invertSign: () => {
