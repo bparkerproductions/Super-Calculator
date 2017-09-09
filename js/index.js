@@ -72,16 +72,11 @@ var App = {
 	},
 
 	invertSign: () => {
-		//BUG: inverted sign changes wrong signs in some situations
+
 		var resultText = $("#result").text();
 		numReg = /-?\+?\d+$/;
 
-		//callback to be passed into try/catch
-		var callback = ()=>{return resultText.match(numReg)[0];};
-		var num = App.attemptOperation(callback);
-
-		resultText = resultText.replace(num, (result) => {
-			console.log(result);
+		resultText = resultText.replace(numReg, (result) => {
 			if(result.includes("-")){
 				return result.replace("-", "+");
 			}
