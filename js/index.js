@@ -7,6 +7,32 @@ var Data = {
 	history: {}
 }
 
+var History = {
+	Views: {
+		toggleHistory: () => {
+		if($("#history").is(":visible")){
+			$("#history").hide();
+		}
+		else{
+			$("#history").show();
+		}
+		},
+
+		renderHistory: () => {
+			$("#historyList").empty();
+			Object.keys(Data.history).forEach((key)=>{
+				$("#historyList").append(`<li><p>${Data.history[key]}</p></li>`);
+			})
+		},
+
+		//History view functions
+		clearHistory: () => {
+			Data.history = {};
+			$("#historyList").empty();
+		},
+	}
+}
+
 var App = {
 	init: () => {
 		App.setEvents();
@@ -20,7 +46,7 @@ var App = {
 
 		//view listeners
 		$("#clear").click(View.clearResult);
-		$(".fa-cog").click(View.toggleHistory);
+		$(".fa-cog").click(History.Views.toggleHistory);
 
 		//history listeners
 		$("#historyList").click(App.useHistory);
@@ -33,51 +59,10 @@ var App = {
 		//check if user already calculated result
 		App.nextOperation(button);
 
-		var validate = App.validateInput(button);
+		var validate = Validate.validateInput(button);
 		if(validate){View.appendToResult(button);}
 	},
 
-	validateInput: (button) => {
-		var operators = ["/", "*", "+", "-", ".", "(", ")"];
-		var resultText = $("#result").text().split("");
-		var prevNum = resultText[resultText.length-1];
-
-		var operate = App.validateOperators(prevNum, button, operators);
-		var floatPoints = App.validateFloats(resultText, button);
-
-		if(operate !== undefined) return operate;
-		if(floatPoints !== undefined) return floatPoints;
-
-		//user starts with operator
-		if(operators.includes(button) && resultText.length == 0){
-			return Data.history ? App.equalLast() : false;
-		}
-		return true;
-	},
-
-	validateOperators: (prevNum, button, operators) => {
-		if(operators.includes(prevNum) && operators.includes(button)){
-			//if it's a parens, it's okay
-			if(button == "(" || button == ")"){
-				//unless you try to enter two in a row
-				if(prevNum == "("){
-					return false;
-				}
-				return true;
-			}
-			return false;
-		}
-	},
-
-	validateFloats: (text, button) => {
-		var operatorRegex = /(\+|\-|\*|\/)/g;
-		text = text.join("").split(operatorRegex);
-		textGroup = text[text.length-1];
-
-		if(textGroup.includes('.') && button == "."){
-			return false
-		}
-	},
 
 	equalLast: () =>{
 		var objLength = Object.keys(Data.history).length;
@@ -155,7 +140,7 @@ var App = {
 		//get new text after appended result
 		var newText = $("#result").text().replace(" ","");
 		App.addHistory(newText);
-		View.renderHistory(newText);
+		History.Views.renderHistory(newText);
 	},
 
 	convertSigns: (text) =>{
@@ -163,7 +148,7 @@ var App = {
 		//into .eval friendly commands
 
 		//for multiplication 5(8), 100(10), etc
-		var multiplyRegex = /\d+\((\d+\+?\-?\*?\/?\(?\)?){1,}\)/ig;
+		var multiplyRegex = /\d+\((\d+\+?\-?\.?\*?\/?\(?\)?){1,}\)/ig;
 		text.replace(multiplyRegex, (data)=>{
 			text = data.replace("(", "*(");
 		});
@@ -225,28 +210,6 @@ var View = {
 
 	clearResult: () => {
 		$("#result").text("");
-	},
-
-	toggleHistory: () => {
-		if($("#history").is(":visible")){
-			$("#history").hide();
-		}
-		else{
-			$("#history").show();
-		}
-	},
-
-	renderHistory: () => {
-		$("#historyList").empty();
-		Object.keys(Data.history).forEach((key)=>{
-			$("#historyList").append(`<li><p>${Data.history[key]}</p></li>`);
-		})
-	},
-
-	//History view functions
-	clearHistory: () => {
-		Data.history = {};
-		$("#historyList").empty();
 	},
 
 	toggleError: (visible) => {
