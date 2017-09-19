@@ -42,7 +42,20 @@ var App = {
 		var resultText = $("#result").text().split("");
 		var prevNum = resultText[resultText.length-1];
 
+		var operate = App.validateOperators(prevNum, button, operators);
+		var floatPoints = App.validateFloats();
+
+		if(operate !== undefined) return operate;
 		//user tries to enter two operators in a row
+
+		//user starts with operator
+		if(operators.includes(button) && resultText.length == 0){
+			return Data.history ? App.equalLast() : false;
+		}
+		return true;
+	},
+
+	validateOperators: (prevNum, button, operators) => {
 		if(operators.includes(prevNum) && operators.includes(button)){
 			//if it's a parens, it's okay
 			if(button == "(" || button == ")"){
@@ -54,12 +67,10 @@ var App = {
 			}
 			return false;
 		}
+	},
 
-		//user starts with operator
-		if(operators.includes(button) && resultText.length == 0){
-			return Data.history ? App.equalLast() : false;
-		}
-		return true;
+	validateFloats: () => {
+		
 	},
 
 	equalLast: () =>{
