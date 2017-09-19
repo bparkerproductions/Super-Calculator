@@ -7,32 +7,6 @@ var Data = {
 	history: {}
 }
 
-var History = {
-	Views: {
-		toggleHistory: () => {
-		if($("#history").is(":visible")){
-			$("#history").hide();
-		}
-		else{
-			$("#history").show();
-		}
-		},
-
-		renderHistory: () => {
-			$("#historyList").empty();
-			Object.keys(Data.history).forEach((key)=>{
-				$("#historyList").append(`<li><p>${Data.history[key]}</p></li>`);
-			})
-		},
-
-		//History view functions
-		clearHistory: () => {
-			Data.history = {};
-			$("#historyList").empty();
-		},
-	}
-}
-
 var App = {
 	init: () => {
 		App.setEvents();
@@ -48,9 +22,7 @@ var App = {
 		$("#clear").click(View.clearResult);
 		$(".fa-cog").click(History.Views.toggleHistory);
 
-		//history listeners
-		$("#historyList").click(App.useHistory);
-		$("#clear-history").on('click', View.clearHistory);
+		History.setEvents();
 	},
 
 	selectNumber: (e) => {
@@ -61,13 +33,6 @@ var App = {
 
 		var validate = Validate.validateInput(button);
 		if(validate){View.appendToResult(button);}
-	},
-
-
-	equalLast: () =>{
-		var objLength = Object.keys(Data.history).length;
-		App.prependLastResult(objLength);
-		return true;
 	},
 
 	invertSign: () => {
@@ -139,7 +104,7 @@ var App = {
 
 		//get new text after appended result
 		var newText = $("#result").text().replace(" ","");
-		App.addHistory(newText);
+		History.addHistory(newText);
 		History.Views.renderHistory(newText);
 	},
 
@@ -166,26 +131,6 @@ var App = {
 			View.toggleError(true);
 			console.log(err);
 		}
-	},
-
-	//history functions
-	addHistory: (resultText) => {
-		var length = Object.keys(Data.history).length+1;
-		var count = `op${length}`;
-		Data.history[count] = resultText;
-	},
-
-	useHistory: (e) => {
-		var text = $(e.target).text().trim();
-		var operation = text.substring(0, text.indexOf('='));
-		View.clearResult();
-		View.appendToResult(operation);
-	},
-
-	prependLastResult: (objLength) =>{
-		var recentEntry = Data.history[`op${objLength}`];
-		var result = recentEntry.substr(recentEntry.indexOf("=")+1);
-		View.prependPrevAnswer(result);
 	},
 
 	shortenResult: (result) => {
