@@ -43,9 +43,10 @@ var App = {
 		var prevNum = resultText[resultText.length-1];
 
 		var operate = App.validateOperators(prevNum, button, operators);
-		var floatPoints = App.validateFloats();
+		var floatPoints = App.validateFloats(resultText, button);
 
 		if(operate !== undefined) return operate;
+		if(floatPoints !== undefined) return floatPoints;
 		//user tries to enter two operators in a row
 
 		//user starts with operator
@@ -69,8 +70,15 @@ var App = {
 		}
 	},
 
-	validateFloats: () => {
-		
+	validateFloats: (text, button) => {
+		var operatorRegex = /(\+|\-|\*|\/)/g;
+		text = text.join("").split(operatorRegex);
+		textGroup = text[text.length-1];
+		console.log(text);
+
+		if(textGroup.includes('.') && button == "."){
+			return false
+		}
 	},
 
 	equalLast: () =>{
@@ -82,7 +90,7 @@ var App = {
 	invertSign: () => {
 
 		var resultText = $("#result").text();
-		numReg = /-?\+?\d+$/;
+		var numReg = /-?\+?\d+$/;
 
 		resultText = resultText.replace(numReg, (result) => {
 			if(result.includes("-")){
