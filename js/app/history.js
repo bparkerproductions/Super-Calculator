@@ -1,5 +1,4 @@
 var History = {
-
 	setEvents: () => {
 		$("#historyList").click(History.useHistory);
 		$("#clear-history").on('click', History.Views.clearHistory);
@@ -14,14 +13,14 @@ var History = {
 	useHistory: (e) => {
 		var text = $(e.target).text().trim();
 		var operation = text.substring(0, text.indexOf('='));
-		View.clearResult();
-		View.appendToResult(operation);
+		Display.Views.clearResult();
+		Display.Views.appendToResult(operation);
 	},
 
 	prependLastResult: (objLength) =>{
-		var recentEntry = Data.history[`op${objLength}`];
+		var recentEntry = Data.history[`op${objLength}`] || {};
 		var result = recentEntry.substr(recentEntry.indexOf("=")+1);
-		View.prependPrevAnswer(result);
+		Display.Views.prependPrevAnswer(result);
 	},
 
 	equalLast: () =>{

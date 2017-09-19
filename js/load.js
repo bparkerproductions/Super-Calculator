@@ -10,4 +10,5 @@ document.write(`
       <!--main app functions -->
       <script src="js/app/validate.js"></script>
       <script src="js/app/history.js"></script>
+      <script src="js/app/display.js"></script>
 `)

@@ -16,12 +16,9 @@ var App = {
 		//main app listeners
 		$(".button").click(App.selectNumber);
 		$("#equals").click(App.calcResult);
-		$("#plus-minus").click(App.invertSign);
+		$("#plus-minus").click(Display.invertSign);
 
-		//view listeners
-		$("#clear").click(View.clearResult);
-		$(".fa-cog").click(History.Views.toggleHistory);
-
+		Display.setEvents();
 		History.setEvents();
 	},
 
@@ -32,36 +29,14 @@ var App = {
 		App.nextOperation(button);
 
 		var validate = Validate.validateInput(button);
-		if(validate){View.appendToResult(button);}
-	},
-
-	invertSign: () => {
-
-		var resultText = $("#result").text();
-		//take regex with -, +, or any# of digits(optional)
-		//and the rest of the numbers 
-		var numReg = /-?\+?\d+?\.?\d+$/;
-
-		resultText = resultText.replace(numReg, (result) => {
-			//replace - with + at beginning, and vice versa
-			if(result.includes("-")){
-				return result.replace("-", "+");
-			}
-			{
-				result = result.replace("+","");
-				return `-${result}`;
-			}
-		});
-
-		View.clearResult();
-		View.appendToResult(resultText);
+		if(validate){Display.Views.appendToResult(button);}
 	},
 
 	nextOperation: (number) => {
 		var resultText = $("#result").text().split("");
  
 		if(resultText.includes("=")){
-			View.clearResult();
+			Display.Views.clearResult();
 		}
 	},
 
@@ -74,14 +49,14 @@ var App = {
 			App.successfulEval(result, text);
 		}
 		catch(err){
-			console.log(err);
+			//console.log(err);
 			App.evalError(text);
 		}
 	},
 
 	successfulEval: (result, text) => {
 		if(text.replace(" ","").trim() == ""){ 
-			View.appendToResult(`0`); 
+			Display.Views.appendToResult(`0`); 
 		}
 		else{
 			App.successfulCalc(result);
@@ -90,17 +65,15 @@ var App = {
 
 	evalError: (text) => {
 		if(text.includes("=")){
-			View.clearResult();
+			Display.Views.clearResult();
 		}
 		else{
-			View.toggleError(true);
+			Display.Views.toggleError(true);
 		}
 	},
 
 	successfulCalc: (result) => {
-		View.toggleError(false);
-		result = App.shortenResult(result);
-		View.appendToResult(`=${result}`);
+		Display.shortenDisplay(result);
 
 		//get new text after appended result
 		var newText = $("#result").text().replace(" ","");
@@ -117,18 +90,17 @@ var App = {
 		text.replace(multiplyRegex, (data)=>{
 			text = data.replace("(", "*(");
 		});
-
 		return text;
 	},
 
 	attemptOperation: (operation) => {
 		try{
-			View.toggleError(false);
+			Display.Views.toggleError(false);
 			var result = operation();
 			return result;
 		}
 		catch(err){
-			View.toggleError(true);
+			Display.Views.toggleError(true);
 			console.log(err);
 		}
 	},
@@ -147,21 +119,5 @@ var View = {
 	init: () => {
 		$("#history").hide();
 		$("#error").hide();
-	},
-
-	appendToResult: (num) => {
-		$("#result").append(num);
-	},
-
-	clearResult: () => {
-		$("#result").text("");
-	},
-
-	toggleError: (visible) => {
-		visible ? $("#error").show() : $("#error").hide();
-	},
-
-	prependPrevAnswer: (result) => {
-		View.appendToResult(result);
 	}
 }

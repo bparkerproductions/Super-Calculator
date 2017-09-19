@@ -10,12 +10,11 @@ var Validate = {
 
 		if(operate !== undefined) return operate;
 		if(floatPoints !== undefined) return floatPoints;
-		console.log(parens);
 		if(parens !== undefined) return parens;
 
 		//user starts with operator
 		if(operators.includes(button) && resultText.length == 0){
-			return Data.history ? App.equalLast() : false;
+			return Data.history ? History.equalLast() : false;
 		}
 		return true;
 	},
