@@ -47,7 +47,6 @@ var App = {
 
 		if(operate !== undefined) return operate;
 		if(floatPoints !== undefined) return floatPoints;
-		//user tries to enter two operators in a row
 
 		//user starts with operator
 		if(operators.includes(button) && resultText.length == 0){
@@ -74,7 +73,6 @@ var App = {
 		var operatorRegex = /(\+|\-|\*|\/)/g;
 		text = text.join("").split(operatorRegex);
 		textGroup = text[text.length-1];
-		console.log(text);
 
 		if(textGroup.includes('.') && button == "."){
 			return false
@@ -90,9 +88,12 @@ var App = {
 	invertSign: () => {
 
 		var resultText = $("#result").text();
-		var numReg = /-?\+?\d+$/;
+		//take regex with -, +, or any# of digits(optional)
+		//and the rest of the numbers 
+		var numReg = /-?\+?\d+?\.?\d+$/;
 
 		resultText = resultText.replace(numReg, (result) => {
+			//replace - with + at beginning, and vice versa
 			if(result.includes("-")){
 				return result.replace("-", "+");
 			}
