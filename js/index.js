@@ -40,12 +40,21 @@ var App = {
 		}
 	},
 
+	sanitize: (input) => {
+		let sanitized = input.replace(/[a-zA-Z]+/g, "");
+		console.log(sanitized);
+		return sanitized;
+	},
+
 	calcResult: () => {
 		var text = $("#result").text().replace(" ","");
 		var converted = App.convertSigns(text);
 
+		//sanitize anything besides operators and numbers
+		var sanitized = App.sanitize(converted);
+
 		try{
-			var result = eval(converted);
+			var result = eval(sanitized);
 			App.successfulEval(result, text);
 		}
 		catch(err){
