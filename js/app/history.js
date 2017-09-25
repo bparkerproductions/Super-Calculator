@@ -18,7 +18,7 @@ var History = {
 	},
 
 	prependLastResult: (objLength) =>{
-		var recentEntry = Data.history[`op${objLength}`] || {};
+		var recentEntry = Data.history[`op${objLength}`] || "=1";
 		var result = recentEntry.substr(recentEntry.indexOf("=")+1);
 		Display.Views.prependPrevAnswer(result);
 	},
