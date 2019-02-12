@@ -1,7 +1,6 @@
 <h1> SuperCalculator </h1>
 
 <h2>A calculator built using good old JQuery</h2>
-<a href="https://bparkerproductions.github.io/Super-Calculator/"> See it Live!</a>
 
 <p>
   This calculator has some basic functionality with a few
